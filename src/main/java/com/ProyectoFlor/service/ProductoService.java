@@ -26,13 +26,11 @@ public class ProductoService {
     }
     
     public List<Producto> buscarPorCategoria(Categoria categoria) {
-        // Fixed method name
-        return productoRepository.findByCategoriaId(categoria.getId());
+    return productoRepository.findByCategoria(categoria);
     }
 
     public List<Producto> buscarPorNombreYCategoria(String nombre, Categoria categoria) {
-        // Fixed method name
-        return productoRepository.findByNombreContainingIgnoreCaseAndCategoriaId(nombre, categoria.getId());
+    return productoRepository.findByNombreContainingIgnoreCaseAndCategoria(nombre, categoria);
     }
     
     public void eliminar(Long id) {

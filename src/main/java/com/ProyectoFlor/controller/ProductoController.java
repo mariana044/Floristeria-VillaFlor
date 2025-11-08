@@ -22,7 +22,7 @@ public class ProductoController {
     @Autowired
     private CategoriaService categoriaService;
 
-    @GetMapping("/catalogo")
+    @GetMapping({"/catalogo", "/productos"})
     public String verCatalogo(
             @RequestParam(required = false) String ch,        // búsqueda por nombre
             @RequestParam(required = false) Long categoriaId, // filtro por categoría
@@ -52,6 +52,8 @@ public class ProductoController {
         model.addAttribute("categorias", categoriaService.listarTodas());
         model.addAttribute("busqueda", ch != null ? ch : "");
         model.addAttribute("categoriaSeleccionada", categoriaId);
+        
+        System.out.println("Lista de categorías: " + model.getAttribute("categorias"));
 
         return "catalogo"; // Thymeleaf: catalogo.html
     }

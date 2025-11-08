@@ -32,9 +32,9 @@ public class HomeController {
         return "admin";
     }
     
-    @GetMapping("/productos")
+    @GetMapping("/home-productos")
     public String productos() {
-        return "productos";
+    return "productos";
     }
     
 
