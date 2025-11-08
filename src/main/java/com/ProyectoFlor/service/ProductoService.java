@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ProyectoFlor.model.Producto;
 import com.ProyectoFlor.repository.ProductoRepository;
+import com.ProyectoFlor.model.Categoria;
 import java.util.List;
 
 @Service
@@ -23,7 +24,17 @@ public class ProductoService {
     public Producto obtenerPorId(Long id) {
         return productoRepository.findById(id).orElse(null);
     }
+    
+    public List<Producto> buscarPorCategoria(Categoria categoria) {
+        // Fixed method name
+        return productoRepository.findByCategoriaId(categoria.getId());
+    }
 
+    public List<Producto> buscarPorNombreYCategoria(String nombre, Categoria categoria) {
+        // Fixed method name
+        return productoRepository.findByNombreContainingIgnoreCaseAndCategoriaId(nombre, categoria.getId());
+    }
+    
     public void eliminar(Long id) {
         productoRepository.deleteById(id);
     }

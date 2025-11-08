@@ -4,8 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import com.ProyectoFlor.service.ProductoService;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.ProyectoFlor.service.ProductoService;
+import com.ProyectoFlor.service.CategoriaService;
+import com.ProyectoFlor.model.Producto;
+import com.ProyectoFlor.model.Categoria;
+
+import java.util.List;
 
 @Controller
 public class ProductoController {
@@ -13,14 +19,40 @@ public class ProductoController {
     @Autowired
     private ProductoService productoService;
 
+    @Autowired
+    private CategoriaService categoriaService;
+
     @GetMapping("/catalogo")
-    public String verCatalogo(@RequestParam(required = false) String ch, Model model) {
-        if (ch != null && !ch.isEmpty()) {
-            model.addAttribute("productos", productoService.buscarPorNombre(ch));
-            model.addAttribute("busqueda", ch);
+    public String verCatalogo(
+            @RequestParam(required = false) String ch,        // búsqueda por nombre
+            @RequestParam(required = false) Long categoriaId, // filtro por categoría
+            Model model) {
+
+        List<Producto> productos;
+
+        // Obtener categoría si se seleccionó
+        Categoria categoria = (categoriaId != null) ? categoriaService.obtenerPorId(categoriaId) : null;
+
+        if (ch != null && !ch.isEmpty() && categoria != null) {
+            // Filtrar por nombre y categoría
+            productos = productoService.buscarPorNombreYCategoria(ch, categoria);
+        } else if (ch != null && !ch.isEmpty()) {
+            // Filtrar solo por nombre
+            productos = productoService.buscarPorNombre(ch);
+        } else if (categoria != null) {
+            // Filtrar solo por categoría
+            productos = productoService.buscarPorCategoria(categoria);
         } else {
-            model.addAttribute("productos", productoService.listarTodos());
+            // Sin filtro
+            productos = productoService.listarTodos();
         }
-        return "catalogo";
+
+        // Enviar datos a la vista
+        model.addAttribute("productos", productos);
+        model.addAttribute("categorias", categoriaService.listarTodas());
+        model.addAttribute("busqueda", ch != null ? ch : "");
+        model.addAttribute("categoriaSeleccionada", categoriaId);
+
+        return "catalogo"; // Thymeleaf: catalogo.html
     }
 }
