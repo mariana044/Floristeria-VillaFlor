@@ -23,19 +23,22 @@
                             </div>
 
                             <div class="card-body">
-                                <form>
+                                <form action="/login" method="post">
                                     <div class="mb-3">
                                         <label class="form-label">Email</label>
-                                        <input class="form-control" name="email" type="email" placeholder="Ingresa tu email">
+                                        <input class="form-control" name="correo" type="email" placeholder="Ingresa tu email" required>
                                     </div>
 
                                     <div class="mb-3">
                                         <label class="form-label">Contraseña</label>
-                                        <input class="form-control" name="password" type="password" placeholder="Ingresa tu contraseña">
+                                        <input class="form-control" name="contrasena" type="password" placeholder="Ingresa tu contraseña" required>
                                     </div>
 
                                     <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+
+                                    <p th:if="${error}" th:text="${error}" class="text-danger mt-2"></p>
                                 </form>
+
                             </div>
 
                             <div class="card-footer text-center">
