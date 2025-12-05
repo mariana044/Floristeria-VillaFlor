@@ -17,7 +17,7 @@
                             </div>
 
                             <div class="card-body">
-                                <form>
+                                <form th:action="@{/registro}" th:object="${usuario}" method="post">
                                     <!-- Nombre -->
                                     <div class="mb-3">
                                         <label class="form-label">Nombre</label>
@@ -39,7 +39,7 @@
                                     <!-- Password -->
                                     <div class="mb-3">
                                         <label class="form-label">Contraseña</label>
-                                        <input class="form-control" type="password" name="password" placeholder="Ingresa tu contraseña">
+                                        <input class="form-control" type="password" name="contrasena" placeholder="Ingresa tu contraseña">
                                     </div>
 
                                     <!-- Dirección -->
@@ -48,7 +48,7 @@
                                         <input class="form-control" type="text" name="direccion" placeholder="Ingresa tu dirección">
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary w-100">Registrarse</button>
+                                     <button type="submit" class="btn btn-primary w-100">Registrarse</button>
                                 </form>
                             </div>
 

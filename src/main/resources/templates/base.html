@@ -62,17 +62,41 @@
                         </li>
                     </ul>
 
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/login"><i class="fa-solid fa-sign-in-alt"></i> Iniciar Sesión</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/register">Regístrate</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/admin"><i class="fa-solid fa-user-shield"></i> Admin</a>
-                        </li>
-                    </ul>
+                   <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+    <!-- Si NO hay usuario en sesión -->
+    <li class="nav-item" th:if="${usuario == null}">
+        <a class="nav-link active" aria-current="page" href="/login">
+            <i class="fa-solid fa-sign-in-alt"></i> Iniciar Sesión
+        </a>
+    </li>
+
+    <li class="nav-item" th:if="${usuario == null}">
+        <a class="nav-link active" aria-current="page" href="/register">
+            Regístrate
+        </a>
+    </li>
+
+    <!-- Si hay usuario en sesión -->
+    <li class="nav-item dropdown" th:if="${usuario != null}">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            Hola, <span th:text="${usuario.nombre}">Usuario</span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="/perfil">Mi Perfil</a></li>
+            <li><a class="dropdown-item" href="/logout">Cerrar Sesión</a></li>
+        </ul>
+    </li>
+
+    <!-- Admin siempre visible si así lo deseas -->
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="/admin">
+            <i class="fa-solid fa-user-shield"></i> Admin
+        </a>
+    </li>
+
+</ul>
+
                 </div>
             </div>
         </nav>

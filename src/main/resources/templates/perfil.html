@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base::Layout(~{::section})}">
+
+<body>
+
+<section>
+
+    <div class="container mt-5 mb-5">
+        <div class="row">
+
+            <!-- Panel lateral con foto e info corta -->
+            <div class="col-md-3">
+                <div class="card shadow-sm p-3 text-center">
+
+               
+                   
+
+                    <h5 th:text="${usuario.nombre}"></h5>
+                    <p class="text-muted" th:text="${usuario.correo}"></p>
+
+                    <hr>
+
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-outline-success" th:href="@{/perfil}">Mi Perfil</a>
+                        <a class="btn btn-outline-success" th:href="@{/historial}">Historial</a>
+                        <a class="btn btn-outline-success" th:href="@{/direccion}">Direcciones</a>
+                        <a class="btn btn-outline-success" th:href="@{/logout}">Cerrar Sesión</a>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Panel principal -->
+            <div class="col-md-9">
+
+                <div class="card shadow-sm p-4">
+
+                    <h3 class="mb-4">Mi Perfil</h3>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="fw-bold">Nombre</label>
+                            <p th:text="${usuario.nombre}"></p>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="fw-bold">Correo</label>
+                            <p th:text="${usuario.correo}"></p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="fw-bold">Teléfono</label>
+                            <p th:text="${usuario.telefono}"></p>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="fw-bold">Dirección</label>
+                            <p th:text="${usuario.direccion}"></p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <h4 class="mt-4">Mi Historial Reciente</h4>
+                    <p class="text-muted">Últimos pedidos del cliente</p>
+
+                    <!-- Si hay historial -->
+                    <div th:if="${historial != null && !historial.isEmpty()}">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Pedido</th>
+                                    <th>Fecha</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="p : ${historial}">
+                                    <td th:text="${p.codigo}"></td>
+                                    <td th:text="${p.fecha}"></td>
+                                    <td>₡ <span th:text="${p.total}"></span></td>
+                                    <td>
+                                        <a class="btn btn-sm btn-success" 
+                                           th:href="@{|/pedido/${p.id}|}">
+                                           Ver
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Si no hay historial -->
+                    <div th:if="${historial == null || historial.isEmpty()}">
+                        <p class="text-muted">Aún no tienes pedidos registrados.</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+</body>
+</html>
