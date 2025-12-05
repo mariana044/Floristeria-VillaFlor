@@ -53,11 +53,11 @@
                                 Categorías
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="/categorias/flores">Flores</a></li>
-                                <li><a class="dropdown-item" href="/categorias/globos">Globos</a></li>
-                                <li><a class="dropdown-item" href="/categorias/peluches">Peluches</a></li>
-                                <li><a class="dropdown-item" href="/categorias/suculentas">Suculentas</a></li>
-                                <li><a class="dropdown-item" href="/categorias/tarjetas">Tarjetas</a></li>
+                                <li><a class="dropdown-item" th:href="@{/productos(categoriaId=${1})}">Flores</a></li>
+                                <li><a class="dropdown-item" th:href="@{/productos(categoriaId=${2})}">Globos</a></li>
+                                <li><a class="dropdown-item" th:href="@{/productos(categoriaId=${3})}">Peluches</a></li>
+                                <li><a class="dropdown-item" th:href="@{/productos(categoriaId=${4})}">Suculentas</a></li>
+                                <li><a class="dropdown-item" th:href="@{/productos(categoriaId=${5})}">Tarjetas</a></li>
                             </ul>
                         </li>
                     </ul>
